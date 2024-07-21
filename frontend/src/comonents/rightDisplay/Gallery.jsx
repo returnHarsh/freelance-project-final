@@ -25,7 +25,8 @@ const Gallery = () => {
         setGalleryImagesLoading(true);
         const res = await axios({
           method: "get",
-          url: "http://localhost:8080/api/gallery",
+          // url: "http://localhost:8080/api/gallery",
+          url: "/api/gallery",
         })
 
         const data = res.data;

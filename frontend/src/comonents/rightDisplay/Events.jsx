@@ -37,7 +37,8 @@ const Events = () => {
       e.preventDefault();
 
       const res = await axios({
-        url : `http://localhost:8080/api/event/${event._id}`,
+        // url : `http://localhost:8080/api/event/${event._id}`,
+        url : `/api/event/${event._id}`,
         method : "delete",
         headers : {
           'Authorization': `Bearer ${token}`

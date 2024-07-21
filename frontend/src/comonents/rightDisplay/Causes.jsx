@@ -23,7 +23,8 @@ const Causes = () => {
       try{
 
         const res = await axios({
-          url : "http://localhost:8080/api/cause",
+          // url : "http://localhost:8080/api/cause",
+          url : "/api/cause",
           method : "get",
         })
 
