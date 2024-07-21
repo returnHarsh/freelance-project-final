@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion';
 
 const OurPrograms = () => {
 
@@ -59,7 +58,7 @@ const OurPrograms = () => {
             <div className='flex  justify-center items-center w-full flex-wrap gap-[20px] gap-y-[35px] box-border p-2  '>
             {
                 ourPrograms.map((item , index)=>{
-                    return <motion.div 
+                    return <div 
                      key={index} className='shadow-md p-2 rounded-md cursor-pointer w-[40%] my-[20px] box-border flex justify-center items-center gap-[10px]'>
                         <div>
                         <img  className={` ${index == 0 && "scale-[1.2]"} ${index == 1 && "scale-[0.8]"} ${index == 5 && "scale-[0.8]"} h-[90px]`} src={item.img} alt={item.img} />
@@ -68,7 +67,7 @@ const OurPrograms = () => {
                         <h1 className={`text-[2rem] ${item.textColor}  font-bold border-b-[5px]  border-b-solid ${item.borderColor}   inline-block  `}> {item.title} </h1>
                         <p className='text-[12px] font-[400]'> {item.desc} </p>
                         </div>
-                    </motion.div>
+                    </div>
                 })
             }
             </div>
