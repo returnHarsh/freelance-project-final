@@ -53,5 +53,5 @@ app.get("*", function(_, res) {
   
 
 app.listen(PORT , ()=>{
-    console.log("server online");
+    console.log("server online on port " , PORT);
 })
