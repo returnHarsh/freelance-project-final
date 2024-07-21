@@ -14,7 +14,7 @@ const Cause = () => {
 
   return (
     <div>
-      <section className="ftco-section bg-light">
+    {!dataLoading &&   <section className="ftco-section bg-light">
         <div className="container-fluid">
           <div className="row justify-content-center mb-5 pb-3">
             <div className="col-md-5 heading-section  text-center">
@@ -52,7 +52,7 @@ const Cause = () => {
           </div>
         </div>
 
-      </section>
+      </section>}
     </div>
   )
 }
