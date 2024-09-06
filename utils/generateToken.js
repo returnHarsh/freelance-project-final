@@ -9,7 +9,6 @@ const generateAndSetJWTtoken = async(user , res)=>{
         httpOnly: true,   // Prevents client-side access
         sameSite: 'strict' // Restricts when the cookie is sent in cross-site requests
     });
-    console.log(token);
     return token;
 }
 

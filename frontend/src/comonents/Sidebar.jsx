@@ -45,7 +45,7 @@ const Sidebar = () => {
     const logoutHandler = async()=>{
         try{
             const res = await axios({
-                url : "http://localhost:8080/api/admin/logout/",
+                url : `${process.env.REACT_APP_BACKEND_URL}/api/admin/logout/`,
                 method : "post",
             })
 

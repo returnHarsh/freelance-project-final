@@ -17,8 +17,9 @@ const PORT = process.env.PORT;
 
 const app = express();
 
+
 app.use(cors({
-    origin : ["*"],
+    origin : ["http://localhost:3000"],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials : true
 }))
@@ -39,15 +40,14 @@ cloudinary.config({
 app.use("/api" , Router);
 
 
-// app.use(express.static(path.join(__dirname , "/frontend/build")));
-// app.get("*", function(_, res) { 
- 
-//   try{
-//     res.sendFile(path.join(__dirname , "/frontend" , "/build" , "/index.html"));
-//   }catch(err){
-//     console.log(err.message);
-//   }
-//   });
+app.use(express.static(path.join(__dirname , "/frontend/build")));
+app.get("*", function(_, res) { 
+  try{
+    res.sendFile(path.join(__dirname , "/frontend" , "/build" , "/index.html"));
+  }catch(err){
+    console.log(err.message);
+  }
+  });
 
 
   

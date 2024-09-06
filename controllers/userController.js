@@ -163,7 +163,7 @@ const userController = () => {
 
                 await event.save();
 
-                return res.status(200).json({ success: "new event created" , event });
+                return res.status(200).json({ success: "new event created", event });
 
             } catch (err) {
 
@@ -281,53 +281,79 @@ const userController = () => {
 
         signup: async (req, res) => {
             try {
+                console.log("inside the sign up");
+
+                // const { prevEmail : previousEmail , prevPass : previousPassword , email, password  , dob , book , petName} = req.body;
+
+                // if(!dob || !book || !petName) return res.json(404).json({error : "all fields are required"});
+
+                // const isPrevUser = await User.find({});
+
+                // if(isPrevUser.length == 0) {
+                //     if(!email || !password) return res.status(401).json({error : "all fields are required"});
+                //     const salt = await bcrypt.genSalt(10);
+                //     const hashedPassword = await bcrypt.hash(password , salt);
+
+                //     const user = new User({
+                //         email , password : hashedPassword
+                //     })
+
+                //     await user.save();
+                //     const token = await generateAndSetJWTtoken(user, res);
+                //     user.token = token;
+                //     await user.save();
+
+                // return res.status(200).json({ success: "successfully registered", user });
+
+                // }else{
+                //     if (!previousEmail, !previousPassword , !email, !password) return res.status(401).json({ error: "all fields are required" });
+
+                //     const prevUser = await User.findOne({email : previousEmail});
+                //     if(!previousEmail) return res.status(401).json({error : "you are not an admin"});
+
+                //     const isPreviousPassMatch = await bcrypt.compare(previousPassword , prevUser.password);
+                //     if(!isPreviousPassMatch) return res.status(401).json({error : "not an admin"});
 
 
+                //     const salt = await bcrypt.genSalt(10);
+                //     const hashedPassword = await bcrypt.hash(password, salt);
 
-                const { prevEmail : previousEmail , prevPass : previousPassword , email, password } = req.body;
+                //     prevUser.email = email;
+                //     prevUser.password = hashedPassword;
 
-                const isPrevUser = await User.find({});
+                //     await prevUser.save();
+                //     const token = await generateAndSetJWTtoken(prevUser, res);
+                //     prevUser.token = token;
+                //     await prevUser.save();
 
-                if(isPrevUser.length == 0) {
-                    if(!email || !password) return res.status(401).json({error : "all fields are required"});
-                    const salt = await bcrypt.genSalt(10);
-                    const hashedPassword = await bcrypt.hash(password , salt);
+                //     return res.status(200).json({ success: "successfully registered", user : prevUser });
 
-                    const user = new User({
-                        email , password : hashedPassword
-                    })
+                // }
 
-                    await user.save();
-                    const token = await generateAndSetJWTtoken(user, res);
-                    user.token = token;
-                    await user.save();
+                const { email, password, name, dob, book, petName } = req.body;
 
-                return res.status(200).json({ success: "successfully registered", user });
-
-                }else{
-                    if (!previousEmail, !previousPassword , !email, !password) return res.status(401).json({ error: "all fields are required" });
-
-                    const prevUser = await User.findOne({email : previousEmail});
-                    if(!previousEmail) return res.status(401).json({error : "you are not an admin"});
-
-                    const isPreviousPassMatch = await bcrypt.compare(previousPassword , prevUser.password);
-                    if(!isPreviousPassMatch) return res.status(401).json({error : "not an admin"});
-
-    
-                    const salt = await bcrypt.genSalt(10);
-                    const hashedPassword = await bcrypt.hash(password, salt);
-
-                    prevUser.email = email;
-                    prevUser.password = hashedPassword;
-
-                    await prevUser.save();
-                    const token = await generateAndSetJWTtoken(prevUser, res);
-                    prevUser.token = token;
-                    await prevUser.save();
-
-                    return res.status(200).json({ success: "successfully registered", user : prevUser });
-                   
+                if (!email || !password || !name || !dob || !book || !petName) {
+                    return res.status(402).json({ error: "All fields are required" });
                 }
+
+                const alreadyUserExsist = await User.find();
+                if (alreadyUserExsist.length > 0) return res.status(401).json({ error: "Admin already present and there can be only one admin" });
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(password, salt);
+
+                const user = new User({
+                    name, email, dob, book, petName, password: hashedPassword
+                })
+
+
+                await user.save();
+                const token = await generateAndSetJWTtoken(user, res);
+                user.token = token;
+                await user.save();
+
+
+
+                return res.status(200).json({ success: "user successfully registered", user });
 
 
             } catch (error) {
@@ -339,18 +365,36 @@ const userController = () => {
 
         forgotPassword: async (req, res) => {
             try {
-                const { email, password } = req.body;
+                // const { email, password } = req.body;
 
-                const user = await User.findOne({ email });
-                if (!user) return res.json({ error: "user didn't exsists" });
+                // const user = await User.findOne({ email });
+                // if (!user) return res.json({ error: "user didn't exsists" });
 
-                const salt = await bcrypt.genSalt(10);
-                const hashedPassword = await bcrypt.hash(password, salt);
+                // const salt = await bcrypt.genSalt(10);
+                // const hashedPassword = await bcrypt.hash(password, salt);
 
-                user.password = hashedPassword;
-                await user.save();
+                // user.password = hashedPassword;
+                // await user.save();
 
-                return res.json({ success: "password change successfully" });
+                // return res.json({ success: "password change successfully" });
+
+                const{email , password , book, petName , dob} = req.body;
+
+                if(!email || !password || !book || !petName || !dob) return res.status(404).json({error : "all fields are required"});
+
+                let user = await User.findOne({email});
+                if(!user) return res.status(402).json({error : "email is not valid"})
+
+                    console.log(user);
+
+                    if(user.book != book || user.petName != petName || user.dob != dob) return res.status(402).json({error : "credentials are invalid"});
+
+                    const newPassowrd = password;
+                    const salt = await bcrypt.genSalt(10);
+                    const newHashedPassword = await bcrypt.hash(newPassowrd , salt);
+                    user.password = newHashedPassword;
+                    await user.save();
+                    return res.status(200).json({success : "password updated successfully"});
 
 
             } catch (err) {
@@ -364,7 +408,7 @@ const userController = () => {
                     expires: new Date(Date.now() + 10), // Set expiry time as desired, e.g., 1 second from now
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'None',
+                    sameSite: 'strict',
                 });
                 res.json({ success: 'Logout successful' });
             } catch (err) {
@@ -373,15 +417,15 @@ const userController = () => {
             }
         },
 
-        deleteEvent : async(req,res)=>{
-            try{
+        deleteEvent: async (req, res) => {
+            try {
 
-                const{eventId} = req.params;
-                await Event.deleteOne({_id : eventId});
-                return res.json({success : "event deleted successfully"});
+                const { eventId } = req.params;
+                await Event.deleteOne({ _id: eventId });
+                return res.json({ success: "event deleted successfully" });
 
-            }catch(err){
-                return res.status(402).json({err : err.message});
+            } catch (err) {
+                return res.status(402).json({ err: err.message });
             }
         }
 

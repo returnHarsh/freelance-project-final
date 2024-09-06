@@ -108,9 +108,6 @@ const ContactPage = () => {
 
 {/* map section */}
         <div className="col-md-6 border border-black" id="map">
-        <iframe className='w-full h-full' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6045.72181004265!2d-74.00612846016882!3d40.74308608746747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bb65ffb4b7%3A0xfb6f9cef91401b93!2sEvents%20Coverage%20and%20Photography!5e0!3m2!1sen!2sin!4v1720936579957!5m2!1sen!2sin" width="600" height="450" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-
         </div>
 
       </div>

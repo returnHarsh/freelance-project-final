@@ -3,14 +3,14 @@ import UseStateHook from '../hooks/UseStateHook'
 
 const Gallery = () => {
 
-    const{data , dataLoading} = UseStateHook("http://localhost:8080/api/gallery");
+    const{data , dataLoading} = UseStateHook(`${process.env.REACT_APP_BACKEND_URL}/api/gallery`);
 
   return (
     <div>
      {!dataLoading &&   <section className="ftco-gallery">
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
     
-    {data.galleryImages.map( (data , index)=>{
+    {data.galleryImages.slice(0,8).map( (data , index)=>{
         return   <a
         key={index}
         href={`${data.img}`}

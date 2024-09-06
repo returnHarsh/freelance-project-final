@@ -206,8 +206,8 @@ const Front=()=>{
               </div>
           </div>
           
-      </section>
-       */}
+      </section> */}
+      
   
       <section className="ftco-section">
         <div className="container">
@@ -263,11 +263,9 @@ const Front=()=>{
           </div>
         </div>
       </section>
-  
-    <>
+
   {/* Hello world */}
  <Gallery/>
-</>
 
   
       <Blogs/>

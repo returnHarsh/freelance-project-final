@@ -1,7 +1,6 @@
 import React from 'react'
 import Footer from "../comonents/footer";
 import Nav from "../comonents/Nav"
-import OurPrograms from '../comonents/OurProgram';
 
 const Education = () => {
   return (
@@ -150,7 +149,6 @@ const Education = () => {
 
 
 
-<OurPrograms/>
 
 
       <div className='m-[40px]'>

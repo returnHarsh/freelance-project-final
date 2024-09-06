@@ -6,7 +6,10 @@ import Footer from './footer';
 
 const Events = () => {
 
-  const{data , dataLoading} = UseStateHook("http://localhost:8080/api/events");
+  let{data , dataLoading} = UseStateHook(`${process.env.REACT_APP_BACKEND_URL}/api/events`);
+  if(!dataLoading){
+    data.events = data.events.slice(0,12);
+  }
   const[page , setPage] = useState(1);
 
 
@@ -23,7 +26,7 @@ const Events = () => {
             </div>
           </div>
           <div className="row">
-              {data.events.map(event=>{
+              {data.events.slice(page*6-6 , page*6).map(event=>{
                 return <>
                 <div className="col-md-4 d-flex ">
                 <div className="blog-entry align-self-stretch">

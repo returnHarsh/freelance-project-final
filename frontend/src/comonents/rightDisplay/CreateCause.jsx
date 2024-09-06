@@ -76,7 +76,7 @@ const CreateCause = ({causes , setCauses , setTotalCauses}) => {
         
 
         const res = await axios({
-            url : "http://localhost:8080/api/create/cause",
+            url : `${process.env.REACT_APP_BACKEND_URL}/api/create/cause`,
             method : "post",
             data : formData,
             headers : {
